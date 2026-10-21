@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BodyFollowGaze : MonoBehaviour
 {
-    [Tooltip("The Main Camera to follwo")]
+    [Tooltip("The Main Camera to follow")]
     public Transform cameraTransform;
 
     [Tooltip("Higher = snappier, lower = more lag")]
@@ -14,8 +14,13 @@ public class BodyFollowGaze : MonoBehaviour
     [Tooltip("Ignore sideways head roll (tilting ear to shoulder")]
     public bool ignoreRoll = true;
 
+    // For triggering the body to follow gaze or not
+    public bool followGaze = true;
+
     void LateUpdate()
     {
+        if (!followGaze) return;
+        
         Vector3 euler = cameraTransform.rotation.eulerAngles;
 
         // Convert pitch to -180..180 so scaling works correctly
