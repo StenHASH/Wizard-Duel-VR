@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Transform cameraTransform;   // Main Camera
     public BodyFollowGaze body;         // BodyFollowGaze on PlayerWizard
+    public SpellbookUI spellBook;       // SpellbookUI on the SpellCanvas
 
     [Header("Buttons (VR mode @+C)")]
     public KeyCode castKey = KeyCode.JoystickButton0;       // Lower Front Button
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // C pressed: press to freeze the body, press again to unfreeze
         if (Input.GetKeyDown(toggleKey) && Time.time - lastToggleTime > toggleCooldown)
         {
             detached = !detached;
@@ -54,7 +56,10 @@ public class PlayerController : MonoBehaviour
         body.followGaze = !detached;
 
         if (Input.GetKeyDown(castKey))
-            Debug.Log("Cast Pressed");
+        {
+            if (spellBook != null) spellBook.HandleCastButton();
+            else Debug.Log("Cast / select pressed");
+        }
 
         Move();
     }
