@@ -13,6 +13,9 @@ public class SpellbookUI : MonoBehaviour
     SpellSlot hovered;
     SpellSlot selected;
 
+    [Header("Mana")]
+    public MP mana;
+
     string lastHitList = null; // [ TESTING ]
 
     [Header("Debug")]
@@ -88,5 +91,8 @@ public class SpellbookUI : MonoBehaviour
     {
         Debug.Log("Cast spell: " + (selected != null ? selected.spellName : "none selected"));
         // Later: instantiate selected.spellPrefab toward the reticle
+        bool test = mana.TrySpend(25f);
+        if (test) Debug.Log("Mana deducted: 25");
+        else Debug.Log("Not Enough Mana");
     }
 }

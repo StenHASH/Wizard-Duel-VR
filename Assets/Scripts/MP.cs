@@ -18,6 +18,11 @@ public class MP : MonoBehaviour
         RefreshBar();
     }
 
+    private void Start()
+    {
+        currentMana = 0;
+    }
+
     private void Update()
     {
         if (currentMana >= maxMana) return;

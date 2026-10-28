@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
         body.followGaze = !detached;
 
-        if (Input.GetKeyDown(castKey))
+        if (Input.GetKeyDown(castKey) || Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (spellBook != null) spellBook.HandleCastButton();
             else Debug.Log("Cast / select pressed");
