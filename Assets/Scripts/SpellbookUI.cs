@@ -104,12 +104,11 @@ public class SpellbookUI : MonoBehaviour
             if (test) Debug.Log("ChargeSpell Cast, Mana deducted: 25");
             else Debug.Log("Not Enough Mana");
         }
-        else if (selected.spellName == "WallSpell")
+        else if (selected.spellName == "WallSpell" || Input.GetKeyDown(KeyCode.Space))
         {
             // Cast Wall Spell
             bool test = BarrierSpell.TryCast(barrierPrefab, cameraTransform, mana);
             if (test) Debug.Log("WallSpell cast");
-            else Debug.Log("WallSpell failed: check mana, prefab, and camera references");
         }
         else if (selected.spellName == "FireballSpell")
         {
@@ -117,6 +116,6 @@ public class SpellbookUI : MonoBehaviour
             bool test = mana.TrySpend(40f);
             if (test) Debug.Log("Fireball Cast, Mana deducted: 40");
             else Debug.Log("Not Enough Mana");
-        }   
+        }
     }
 }

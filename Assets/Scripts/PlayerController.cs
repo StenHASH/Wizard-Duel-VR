@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         desiredMovement = (fwd * input.y + right * input.x) * moveSpeed;
     }
 
+    // For Movement to be blocked by barriers
     private void FixedUpdate()
     {
         if (movementBody == null)
@@ -136,5 +137,4 @@ public class PlayerController : MonoBehaviour
         velocity.z = desiredMovement.z;
         movementBody.linearVelocity = velocity;
     }
-
 }

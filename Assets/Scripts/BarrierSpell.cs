@@ -13,17 +13,26 @@ public class BarrierSpell : MonoBehaviour
 
     public static bool TryCast(BarrierSpell prefab, Transform view, MP mana)
     {
+        // Check for any null references
         if (prefab == null || view == null || mana == null)
+        {
+            Debug.Log("Null prefab, view, and/or mana");
             return false;
-
+        }
+        
         Vector3 forward = Vector3.ProjectOnPlane(view.forward, Vector3.up);
         if (forward.sqrMagnitude < 0.001f)
             return false;
         forward.Normalize();
 
+        // Check enough stored mana to cover cost
         if (!mana.TrySpend(prefab.manaCost))
+        {
+            Debug.Log("Not Enough Mana");
             return false;
+        }
 
+        // Cast barrier
         Vector3 position = view.position + forward * prefab.spawnDistance;
         Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
         BarrierSpell barrier = Instantiate(prefab, position, rotation);
