@@ -16,7 +16,7 @@ public class SpellbookUI : MonoBehaviour
     [Header("Mana")]
     public MP mana;
 
-    string lastHitList = null; // [ TESTING ]
+    //string lastHitList = null; // [ TESTING ]
 
     [Header("Debug")]
     public bool logGazeHits = true;
@@ -42,6 +42,7 @@ public class SpellbookUI : MonoBehaviour
         var hits = Physics.RaycastAll(ray, maxDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
 
         // Log what the gaze ray touches, only when it changes [ TESTING ]
+        /*
         if (logGazeHits)
         {
             string list = "";
@@ -52,6 +53,7 @@ public class SpellbookUI : MonoBehaviour
                 lastHitList = list;
             }
         }
+        */
 
 
         foreach (var hit in hits)
@@ -89,10 +91,31 @@ public class SpellbookUI : MonoBehaviour
 
     void CastSelected()
     {
-        Debug.Log("Cast spell: " + (selected != null ? selected.spellName : "none selected"));
-        // Later: instantiate selected.spellPrefab toward the reticle
-        bool test = mana.TrySpend(25f);
-        if (test) Debug.Log("Mana deducted: 25");
-        else Debug.Log("Not Enough Mana");
+        if (!selected)
+        {
+            Debug.Log("No Spell Selected");
+            return;
+        }
+        else if (selected.spellName == "ChargeSpell")
+        {
+            // Cast Charge Spell
+            bool test = mana.TrySpend(25f);
+            if (test) Debug.Log("ChargeSpell Cast, Mana deducted: 25");
+            else Debug.Log("Not Enough Mana");
+        }
+        else if (selected.spellName == "WallSpell")
+        {
+            // Cast Wall Spell
+            bool test = mana.TrySpend(20f);
+            if (test) Debug.Log("WallSpell Cast, Mana deducted: 20");
+            else Debug.Log("Not Enough Mana");
+        }
+        else if (selected.spellName == "FireballSpell")
+        {
+            // Cast Fireball Spell
+            bool test = mana.TrySpend(40f);
+            if (test) Debug.Log("Fireball Cast, Mana deducted: 40");
+            else Debug.Log("Not Enough Mana");
+        }   
     }
 }
