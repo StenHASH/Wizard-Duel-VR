@@ -108,21 +108,33 @@ public class PlayerController : MonoBehaviour
 
     // ---------- Movement ----------
 
+    private Vector3 desiredMovement;
+    private Rigidbody movementBody;
+
     void Move()
     {
+        desiredMovement = Vector3.zero;
+        if (cameraTransform == null) return;
+
         Vector2 dpad = ReadDpad();
-        if (dpad == Vector2.zero) return;
-
-        // Controller held sideways: Dpad down = left, dpad-right = back, etc
         Vector2 input = rotateDpad ? new Vector2(dpad.y, -dpad.x) : dpad;
-
-        // No faster diagonals
         input = Vector2.ClampMagnitude(input, 1f);
 
-        // Walk relative to where the player is facing, flattened to the ground
         Vector3 fwd = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
-
-        transform.position += (fwd * input.y + right * input.x) * moveSpeed * Time.deltaTime;
+        desiredMovement = (fwd * input.y + right * input.x) * moveSpeed;
     }
+
+    private void FixedUpdate()
+    {
+        if (movementBody == null)
+            movementBody = GetComponent<Rigidbody>();
+        if (movementBody == null || movementBody.isKinematic) return;
+
+        Vector3 velocity = movementBody.linearVelocity;
+        velocity.x = desiredMovement.x;
+        velocity.z = desiredMovement.z;
+        movementBody.linearVelocity = velocity;
+    }
+
 }

@@ -5,6 +5,7 @@ public class SpellbookUI : MonoBehaviour
     [Header("References")]
     public Transform cameraTransform; // Main Camera
     public SpellSlot[] slots;
+    public BarrierSpell barrierPrefab;
 
     [Header("Gaze")]
     public float maxDistance = 5f;
@@ -106,9 +107,9 @@ public class SpellbookUI : MonoBehaviour
         else if (selected.spellName == "WallSpell")
         {
             // Cast Wall Spell
-            bool test = mana.TrySpend(20f);
-            if (test) Debug.Log("WallSpell Cast, Mana deducted: 20");
-            else Debug.Log("Not Enough Mana");
+            bool test = BarrierSpell.TryCast(barrierPrefab, cameraTransform, mana);
+            if (test) Debug.Log("WallSpell cast");
+            else Debug.Log("WallSpell failed: check mana, prefab, and camera references");
         }
         else if (selected.spellName == "FireballSpell")
         {
