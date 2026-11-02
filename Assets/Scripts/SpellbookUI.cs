@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SpellbookUI : MonoBehaviour
 {
@@ -6,6 +8,7 @@ public class SpellbookUI : MonoBehaviour
     public Transform cameraTransform; // Main Camera
     public SpellSlot[] slots;
     public BarrierSpell barrierPrefab;
+    public ChargeSpellScript chargeSpell;
 
     [Header("Gaze")]
     public float maxDistance = 5f;
@@ -17,10 +20,18 @@ public class SpellbookUI : MonoBehaviour
     [Header("Mana")]
     public MP mana;
 
+    [Header("ChargeBar")]
+    public GameObject chargeBarRoot;    // ChargeBar object
+    public Image chargeBarFill;    // ChargeBarFill image
+    public TMP_Text chargeBarText;
+
     //string lastHitList = null; // [ TESTING ]
 
     [Header("Debug")]
     public bool logGazeHits = true;
+
+    // ChargeSpell
+    private bool isChargingSpell = false;
 
     private void Start()
     {
@@ -30,10 +41,21 @@ public class SpellbookUI : MonoBehaviour
 
         if (slots != null && slots.Length > 0)
             Select(slots[Mathf.Clamp(startingIndex, 0, slots.Length - 1)]);
+
+        // Hide chargebar initially
+        if (chargeBarRoot != null) chargeBarRoot.SetActive(false);
     }
 
     void Update()
     {
+        if (isChargingSpell && chargeBarFill != null)
+        {
+            float percent = chargeSpell.ChargePercent;
+            if (chargeBarFill != null) chargeBarFill.fillAmount = percent;
+            if (chargeBarText != null) chargeBarText.text = Mathf.RoundToInt(percent * 100f) + "%";
+        }
+            
+
         if (cameraTransform == null) return;
 
         // Cast a ray from the center of the view (where the reticle is)
@@ -100,9 +122,41 @@ public class SpellbookUI : MonoBehaviour
         else if (selected.spellName == "ChargeSpell")
         {
             // Cast Charge Spell
-            bool test = mana.TrySpend(25f);
-            if (test) Debug.Log("ChargeSpell Cast, Mana deducted: 25");
-            else Debug.Log("Not Enough Mana");
+            //bool test = mana.TrySpend(25f);
+            //if (test) Debug.Log("ChargeSpell Cast, Mana deducted: 25");
+            //else Debug.Log("Not Enough Mana");
+
+            // Checks if charge spell has been charging or not
+            // If not, try charging spell
+            if (!isChargingSpell)
+            {
+                // Charge mana, then start charging spell
+                bool trySpend = mana.TrySpend(25f);
+                if (trySpend)
+                {
+                    // Enough mana, charge spell
+                    chargeSpell.StartCharging();
+                    isChargingSpell = true;
+
+                    if (chargeBarRoot != null) chargeBarRoot.SetActive(true);
+                    if (chargeBarFill != null) chargeBarFill.fillAmount = 0f;
+                    if (chargeBarText != null) chargeBarText.text = "0%";
+                }
+                else
+                {
+                    // Not enough Mana, cancel charge
+                    Debug.Log("Not Enough Mana");
+                    return;
+                }
+            }
+            // Spell charged, cast spell
+            else
+            {
+                chargeSpell.ReleaseSpell();
+                isChargingSpell = false;
+
+                if (chargeBarRoot != null) chargeBarRoot.SetActive(false);
+            }
         }
         else if (selected.spellName == "WallSpell" || Input.GetKeyDown(KeyCode.Space))
         {
