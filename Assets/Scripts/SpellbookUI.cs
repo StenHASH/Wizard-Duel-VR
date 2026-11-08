@@ -25,6 +25,10 @@ public class SpellbookUI : MonoBehaviour
     public Image chargeBarFill;    // ChargeBarFill image
     public TMP_Text chargeBarText;
 
+    [Header("PickableSpell")]
+    public BubbleCursor bubbleCursor;
+    public PickableSpell pickableSpell;
+
     //string lastHitList = null; // [ TESTING ]
 
     [Header("Debug")]
@@ -100,7 +104,10 @@ public class SpellbookUI : MonoBehaviour
     // Called by PlayerController when Cast Button is pressed
     public void HandleCastButton()
     {
-        if (hovered != null) Select(hovered);   // Gazing at a slot: choose it
+        // Prevent switching spells if holding a pickable object with the pickable spell
+        bool holding = pickableSpell != null && pickableSpell.IsHolding;
+
+        if (hovered != null && !holding) Select(hovered);   // Gazing at a slot: choose it
         else CastSelected();                    // Otherwise: cast chosen spell
     }
 
@@ -109,6 +116,9 @@ public class SpellbookUI : MonoBehaviour
         if (selected != null) selected.SetSelected(false);
         selected = slot;
         selected.SetSelected(true);
+
+        if (bubbleCursor != null) bubbleCursor.SetActive(selected.spellName == "PickableSpell");
+
         Debug.Log("Selected spell: " + selected.spellName);
     }
 
@@ -164,11 +174,15 @@ public class SpellbookUI : MonoBehaviour
             bool test = BarrierSpell.TryCast(barrierPrefab, cameraTransform, mana);
             if (test) Debug.Log("WallSpell cast");
         }
-        else if (selected.spellName == "FireballSpell")
+        else if (selected.spellName == "PickableSpell")
         {
-            // Cast Fireball Spell
-            bool test = mana.TrySpend(40f);
-            if (test) Debug.Log("Fireball Cast, Mana deducted: 40");
+            // Cast Pickable Spell
+            bool test = mana.TrySpend(35f);
+            if (test)
+            {
+                if (pickableSpell != null) pickableSpell.Cast();
+                Debug.Log("PickableSpell Cast");
+            }
             else Debug.Log("Not Enough Mana");
         }
     }
