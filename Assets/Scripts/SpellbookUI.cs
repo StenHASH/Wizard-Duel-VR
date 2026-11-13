@@ -132,9 +132,6 @@ public class SpellbookUI : MonoBehaviour
         else if (selected.spellName == "ChargeSpell")
         {
             // Cast Charge Spell
-            //bool test = mana.TrySpend(25f);
-            //if (test) Debug.Log("ChargeSpell Cast, Mana deducted: 25");
-            //else Debug.Log("Not Enough Mana");
 
             // Checks if charge spell has been charging or not
             // If not, try charging spell

@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5877830909207831982}
   - component: {fileID: -3025976216867859593}
   - component: {fileID: 7661292757525323106}
+  - component: {fileID: 7094956993934245952}
   m_Layer: 2
   m_Name: ChargeBall
   m_TagString: Untagged
@@ -274,3 +275,20 @@ MonoBehaviour:
   explosionScale: 1
   expandDuration: 0.3
   lingerTime: 0.5
+  damage: 30
+  damageRadius: 0.5
+  useFalloff: 1
+  hurtsCaster: 0
+  caster: {fileID: 0}
+--- !u!114 &7094956993934245952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173428674505967908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb48de1b2c801e42b541ecc8b5f666b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

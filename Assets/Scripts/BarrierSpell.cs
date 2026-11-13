@@ -10,6 +10,7 @@ public class BarrierSpell : MonoBehaviour
 
     [Header("Blocking")]
     public LayerMask projectileLayers;
+    public bool blockPlayerAttacks;         // Set by the enemy wizard's cast script
 
     public static bool TryCast(BarrierSpell prefab, Transform view, MP mana)
     {
@@ -54,8 +55,11 @@ public class BarrierSpell : MonoBehaviour
     {
         Rigidbody body = other.attachedRigidbody;
         GameObject projectile = body != null ? body.gameObject : other.gameObject;
+
+        bool isPlayerAttack = blockPlayerAttacks && projectile.GetComponent<PlayerAttacks>() != null;
+
         int layers = (1 << other.gameObject.layer) | (1 << projectile.layer);
-        if ((projectileLayers.value & layers) == 0)
+        if (!isPlayerAttack && (projectileLayers.value & layers) == 0)
             return;
 
         projectile.SetActive(false);

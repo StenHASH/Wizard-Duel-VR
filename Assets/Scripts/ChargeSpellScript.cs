@@ -15,9 +15,6 @@ public class ChargeSpellScript : MonoBehaviour
     public float minLaunchSpeed = 5f;
     public float maxLaunchSpeed = 25f;
 
-    [Header("Damage Settings")]
-    public DamageReceiver casterReceiver;
-
     //private float currentChargeTime = 0f;
     private float chargeStartTime;
     public bool isCharging = false;
@@ -37,20 +34,6 @@ public class ChargeSpellScript : MonoBehaviour
 
         Debug.Log("Charging Spell");
     }
-
-    // Called every frame while charging
-    /*
-    private void Update()
-    {
-        if (isCharging)
-        {
-            currentChargeTime += Time.deltaTime;
-
-            // Prevent charging beyond maximum charge time
-            currentChargeTime = Mathf.Clamp(currentChargeTime, 0f, maxChargeTime);
-        }
-    }
-    */
 
     // Called when the player presses the button again after/during charge
     public void ReleaseSpell()
@@ -81,9 +64,9 @@ public class ChargeSpellScript : MonoBehaviour
 
         // Spawn orb
         GameObject orb = Instantiate(chargeBallPrefab, spawnPosition, Quaternion.identity);
+        orb.AddComponent<PlayerAttacks>();
         orbRb = orb.GetComponent<Rigidbody>();
         ChargeOrbScript orbScript = orb.GetComponent<ChargeOrbScript>();
-        if (orbScript != null) orbScript.caster = casterReceiver;
 
 
         if (orbRb != null)
