@@ -116,8 +116,18 @@ public class PlayerController : MonoBehaviour
         desiredMovement = Vector3.zero;
         if (cameraTransform == null) return;
 
-        Vector2 dpad = ReadDpad();
-        Vector2 input = rotateDpad ? new Vector2(dpad.y, -dpad.x) : dpad;
+        // KEYBOARD TESTING FOR UNITY PC
+        Vector2 input;
+        if (useKeyboard)
+        {
+            input = ReadKeyboard();
+        }
+        else
+        {
+            Vector2 dpad = ReadDpad();
+            input = rotateDpad ? new Vector2(dpad.y, -dpad.x) : dpad;
+        }
+
         input = Vector2.ClampMagnitude(input, 1f);
 
         Vector3 fwd = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
@@ -136,5 +146,19 @@ public class PlayerController : MonoBehaviour
         velocity.x = desiredMovement.x;
         velocity.z = desiredMovement.z;
         movementBody.linearVelocity = velocity;
+    }
+
+    // TESTING ONLY
+    [Header("Testing")]
+    [SerializeField] private bool useKeyboard = false;
+
+    Vector2 ReadKeyboard()
+    {
+        float x = 0f, y = 0f;
+        if (Input.GetKey(KeyCode.W)) y += 1f;
+        if (Input.GetKey(KeyCode.S)) y -= 1f;
+        if (Input.GetKey(KeyCode.D)) x += 1f;
+        if (Input.GetKey(KeyCode.A)) x -= 1f;
+        return new Vector2(x, y);
     }
 }
