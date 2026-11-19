@@ -3542,6 +3542,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8202630710561113809, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1346781921120576514}
+    - targetCorrespondingSourceObject: {fileID: 8202630710561113809, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1346781921120576515}
   m_SourcePrefab: {fileID: 100100000, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
 --- !u!4 &1346781921120576505 stripped
 Transform:
@@ -3617,6 +3620,21 @@ MonoBehaviour:
   holdPoint: {fileID: 90316799}
   enemyReceiver: {fileID: 1346781921120576508}
   holdTime: 1.2
+--- !u!114 &1346781921120576515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928766711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd9d1e36a63246a5844574770565cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderRadius: 4
+  moveSpeed: 2
+  pauseDuration: 1
 --- !u!1001 &1572398105688430151
 PrefabInstance:
   m_ObjectHideFlags: 0
