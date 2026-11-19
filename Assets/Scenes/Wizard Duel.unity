@@ -826,7 +826,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481389329}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f67e09ae7422a148a2f09ae87536266, type: 3}
   m_Name: 
@@ -3470,6 +3470,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 573530243056645112, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 573530243056645112, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
@@ -3632,9 +3636,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd9d1e36a63246a5844574770565cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 4
-  moveSpeed: 2
-  pauseDuration: 1
+  wanderRadius: 25
+  moveSpeed: 2.5
+  minPause: 3
+  maxPause: 5
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 516
 --- !u!1001 &1572398105688430151
 PrefabInstance:
   m_ObjectHideFlags: 0

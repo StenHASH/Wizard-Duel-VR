@@ -15,10 +15,16 @@ public class EnemyWizardAim : MonoBehaviour
     [Tooltip("Where spells fire from")]
     [SerializeField] private Transform aimOrigin;
 
+    private Rigidbody body;
 
     // Other scripts (spell casting) will read this
     public Transform Target => target;
     public Vector3 DirectionToTarget { get; private set; }
+
+    private void Awake()
+    {
+        body = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
@@ -33,7 +39,9 @@ public class EnemyWizardAim : MonoBehaviour
         if (toTarget.sqrMagnitude < 0.001f) return;
 
         Quaternion desired = Quaternion.LookRotation(toTarget, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, desired, 1f - Mathf.Exp(-turnSpeed * Time.deltaTime));
+        body.MoveRotation(Quaternion.Slerp(
+            body.rotation, desired, 1f - Mathf.Exp(-turnSpeed * Time.fixedDeltaTime)));
+        //transform.rotation = Quaternion.Slerp(transform.rotation, desired, 1f - Mathf.Exp(-turnSpeed * Time.deltaTime));
     }
 
     public void SetTarget(Transform newTarget) => target = newTarget;
