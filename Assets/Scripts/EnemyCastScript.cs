@@ -56,6 +56,7 @@ public class EnemyCastScript : MonoBehaviour
 
     private readonly Collider[] pickableBuffer = new Collider[64];
 
+    private Pickable heldPickable;
 
     private void Start()
     {
@@ -247,6 +248,7 @@ public class EnemyCastScript : MonoBehaviour
 
         Transform hold = holdPoint != null ? holdPoint : (spawnPoint != null ? spawnPoint : transform);
         p.PickUp(hold, transform, enemyReceiver);
+        heldPickable = p;
 
         // Object glides to the hold point and hovers
         yield return new WaitForSeconds(holdTime);
@@ -261,6 +263,7 @@ public class EnemyCastScript : MonoBehaviour
             Debug.Log("Enemy threw a pickable");
         }
 
+        heldPickable = null;
         isCasting = false;
     }
 
@@ -287,5 +290,19 @@ public class EnemyCastScript : MonoBehaviour
             }
         }
         return best;
+    }
+
+    public void Stop()
+    {
+        StopAllCoroutines();
+        isCasting = false;
+
+        if (heldPickable != null)
+        {
+            heldPickable.Drop();
+            heldPickable = null;
+        }
+
+        enabled = false;
     }
 }

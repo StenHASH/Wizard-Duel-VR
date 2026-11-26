@@ -161,4 +161,23 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) x -= 1f;
         return new Vector2(x, y);
     }
+
+    // ---------- Player Death ----------
+    public void Stop()
+    {
+        desiredMovement = Vector3.zero;
+
+        if (body != null) body.followGaze = false;
+
+        if (movementBody == null) movementBody = GetComponent<Rigidbody>();
+        if (movementBody != null && !movementBody.isKinematic)
+        {
+            Vector3 v = movementBody.linearVelocity;
+            v.x = 0f;
+            v.z = 0f;
+            movementBody.linearVelocity = v;
+        }
+
+        enabled = false;
+    }
 }
