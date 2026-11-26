@@ -727,6 +727,7 @@ GameObject:
   - component: {fileID: 481389334}
   - component: {fileID: 481389335}
   - component: {fileID: 481389336}
+  - component: {fileID: 481389337}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -876,6 +877,25 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &481389337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481389329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108363fc908c0e4a82900002067ce94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 869526218}
+  controller: {fileID: 481389333}
+  pickableSpell: {fileID: 1565208527}
+  chargeSpell: {fileID: 1674193495}
+  cast: {fileID: 1346781921120576514}
+  aim: {fileID: 1346781921120576511}
+  movement: {fileID: 1346781921120576515}
 --- !u!1 &539663701
 GameObject:
   m_ObjectHideFlags: 0
@@ -3549,6 +3569,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8202630710561113809, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1346781921120576515}
+    - targetCorrespondingSourceObject: {fileID: 8202630710561113809, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1346781921120576516}
   m_SourcePrefab: {fileID: 100100000, guid: aab39b0d45e6bea4ea5388090f9d2950, type: 3}
 --- !u!4 &1346781921120576505 stripped
 Transform:
@@ -3643,6 +3666,25 @@ MonoBehaviour:
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 516
+--- !u!114 &1346781921120576516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928766711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3443d40225b897746b4a3734ed5b54f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 2097005844}
+  cast: {fileID: 1346781921120576514}
+  aim: {fileID: 1346781921120576511}
+  movement: {fileID: 1346781921120576515}
+  controller: {fileID: 481389333}
+  pickableSpell: {fileID: 1565208527}
+  chargeSpell: {fileID: 1674193495}
 --- !u!1001 &1572398105688430151
 PrefabInstance:
   m_ObjectHideFlags: 0

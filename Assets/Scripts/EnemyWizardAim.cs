@@ -45,4 +45,6 @@ public class EnemyWizardAim : MonoBehaviour
     }
 
     public void SetTarget(Transform newTarget) => target = newTarget;
+
+    public void Stop() => enabled = false;
 }

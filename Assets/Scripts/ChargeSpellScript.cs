@@ -83,4 +83,10 @@ public class ChargeSpellScript : MonoBehaviour
 
         Destroy(orb, Mathf.Max(0.1f, lifetime));
     }
+
+    // For when player dies
+    public void CancelCharge()
+    {
+        isCharging = false;
+    }
 }

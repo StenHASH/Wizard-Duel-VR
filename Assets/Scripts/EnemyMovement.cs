@@ -96,4 +96,9 @@ public class EnemyMovement : MonoBehaviour
         if (pause > 0f) pauseRemaining = pause;
         else PickDestination();
     }
+
+    public void Stop()
+    {
+        enabled = false;
+    }
 }

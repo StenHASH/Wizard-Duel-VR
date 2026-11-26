@@ -9,6 +9,10 @@ public class HP : MonoBehaviour
     [SerializeField] private Text valueLabel;
     private float currentHealth;
 
+    // Wizard Death
+    public event System.Action Died;
+    public bool isDead => currentHealth <= 0f;
+
     private void Awake()
     {
         if (healthFill == null) healthFill = GetComponent<Image>();
@@ -23,7 +27,10 @@ public class HP : MonoBehaviour
         currentHealth = Mathf.Max(0f, currentHealth - amount);
         RefreshBar();
         if (currentHealth <= 0f)
+        {
             Debug.Log("Wizard defeated", this);
+            Died?.Invoke();
+        }
     }
 
     public void Heal(float amount)

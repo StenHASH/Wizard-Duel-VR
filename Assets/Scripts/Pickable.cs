@@ -222,4 +222,13 @@ public class Pickable : MonoBehaviour
         if (routine != null) StopCoroutine(routine);
         routine = null;
     }
+
+    public void Drop()
+    {
+        if (CurrentState != State.Held) return;
+
+        rb.isKinematic = false;
+        rb.detectCollisions = true;
+        BeginFall();
+    }
 }

@@ -31,5 +31,16 @@ public class PickableSpell : MonoBehaviour
             bubbleCursor.SetActive(true);
         }
     }
+
+    // Called to drop any carried pickables when player dies
+    public void Drop()
+    {
+        if (held != null)
+        {
+            held.Drop();
+            held = null;
+        }
+        if (bubbleCursor != null) bubbleCursor.SetActive(false);
+    }
 }
 
